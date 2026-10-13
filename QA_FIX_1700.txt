@@ -1,0 +1,28 @@
+BRATS2021 FARC v2.2 — fix for brats2021_1700.err
+
+Root cause:
+  The job reached dataset preparation but discovered zero complete labeled BraTS cases under the exact configured root.
+
+Fixes:
+  - recursive official BraTS2021 filename discovery
+  - support t1n/t1c/t2w/t2f aliases
+  - nested/flat folder support
+  - nnU-Net imagesTr/labelsTr support
+  - sibling/case-insensitive BraTS2021 root fallback
+  - archive diagnostics when data is still compressed
+  - absolute manifest paths after auto-root resolution
+  - duplicate case-ID guard against patient leakage
+  - manifest preparation always revalidated on re-submit
+
+QA performed in container:
+  - Python compile: PASS
+  - synthetic official nested layout: PASS (30/30 cases)
+  - synthetic flat t1n/t1c/t2w/t2f layout: PASS (20/20 cases)
+  - synthetic nnU-Net imagesTr/labelsTr layout: PASS (20/20 cases)
+  - existing smoke tests: 3/3 PASS
+
+Normal HPC entry point remains:
+  sbatch run_uit.slurm
+
+If auto-discovery still cannot find the data, submit with an explicit real path:
+  DATA_ROOT=/actual/path/to/BraTS2021_TrainingData sbatch run_uit.slurm

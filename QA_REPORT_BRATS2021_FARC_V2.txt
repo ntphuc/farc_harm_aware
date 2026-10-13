@@ -1,0 +1,17 @@
+BraTS2021 FARC-v2 QA
+====================
+Static Python compile: PASS
+Synthetic 3D segmentor forward: PASS
+Synthetic 6-channel error-map forward: PASS
+Action bank / physical-spacing HD95 smoke: PASS
+Action gain/harm controller smoke: PASS
+Full development-tree tests: 20/20 PASS
+Clean deliverable package smoke tests: 3/3 PASS
+
+Not executed here:
+- Full BraTS 2021 training/evaluation, because the BraTS dataset is not mounted in this runtime.
+- NIfTI end-to-end loading, because nibabel is not installed in this runtime; it is included in requirements_brats2021.txt.
+
+Before HPC run, verify:
+- /datastore/phucngt/datasets/BraTS2021 exists and contains labeled BraTS 2021 training case folders.
+- /datastore/phucngt/datasets/venv_cu128 has torch/scipy/sklearn/pandas/pyyaml/nibabel.
